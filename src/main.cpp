@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "config.h"
 #include "crsf.h"
+#include <WiFi.h>
+#include <esp_bt.h>
 
 CRSF crsf;
 TaskHandle_t FlightTaskHandle;
@@ -47,6 +49,9 @@ void TelemetryTask(void *pvParameters) {
 }
 
 void setup() {
+    WiFi.mode(WIFI_OFF);
+    btStop();
+    esp_bt_controller_disable();   //for power saving
     Serial.begin(115200);
     Serial2.begin(CRSF_BAUDRATE, SERIAL_8N1, CRSF_RX_PIN, CRSF_TX_PIN);
     crsf.begin(Serial2);
