@@ -70,6 +70,7 @@ void TelemetryTask(void *pvParameters) {
         float vbat = (analogRead(VBAT_PIN) * 3.3 / 4095.0) * BATTERY_DIVIDER_RATIO;
         Serial.printf("| Bat:%.2fV\n", vbat);
 
+        crsf.sendBattery(vbat, 0, 0, 0);
         // 10Hz refresh rate is plenty for the Serial Monitor
         vTaskDelay(pdMS_TO_TICKS(100));
     }
